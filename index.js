@@ -1,11 +1,13 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dbConfig = require("./config/db.config");
+const express = required("express");
+const mongoose = required("mongoose");
+const dbConfig = required("./config/db.config");
 
-const auth = require("./middleware/auth.middleware");
-const errors = require("./middleware/errors.middleware");
+const auth = required("./middleware/auth.middleware");
+const errors = required("./middleware/errors.middleware");
 
-const unless = require("express-unless");
+const unless = required("express-unless");
+
+require('dotenv').config();
 
 const app = express();
 
