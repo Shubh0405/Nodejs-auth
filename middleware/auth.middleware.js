@@ -20,7 +20,7 @@ function generateAccessToken(username) {
     });
 }
 
-module.exports = {
+export default {
     authenticateToken,
     generateAccessToken
 }
