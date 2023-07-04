@@ -1,10 +1,10 @@
-const userController = required("../controllers/user.controller");
+const userController = require("../controllers/user.controller");
 
-const express = required("express");
-const router = express.router();
+const express = require("express");
+const router = express.Router();
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.get("/user-profile", userController.userProfile);
 
-export default router;
+module.exports = router;

@@ -1,17 +1,20 @@
-const express = required("express");
-const mongoose = required("mongoose");
-const dbConfig = required("./config/db.config");
+const express = require("express");
+const mongoose = require("mongoose");
+const dbConfig = require("./config/db.config");
 
-const auth = required("./middleware/auth.middleware");
-const errors = required("./middleware/errors.middleware");
+const auth = require("./middleware/auth.middleware");
+const errors = require("./middleware/errors.middleware");
 
-const unless = required("express-unless");
+const { unless } = require("express-unless");
+const userRouter = require("./routes/user.routes");
 
 require('dotenv').config();
 
 const app = express();
 
 mongoose.Promise = global.Promise;
+console.log(dbConfig.db);
+console.log(process.env.DATABASE_USER);
 mongoose.connect(dbConfig.db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -36,7 +39,7 @@ app.use(
 
 app.use(express.json());
 
-app.use("/users", require("./routes/user.routes").default);
+app.use("/users", userRouter);
 
 app.use(errors.errorHandler);
 

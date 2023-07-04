@@ -1,12 +1,13 @@
-const bcryptjs = requred("bcryptjs");
-const userService = required("../services/users.services");
+const bcryptjs = require("bcryptjs");
+const userService = require("../services/user.services");
 
-export function register(req, res, next) {
+async function register(req, res, next) {
     const { password } = req.body;
-    const salt = bcryptjs.genSalt(10);
+    const salt = await bcryptjs.genSalt(10);
 
-    req.body.password = bcryptjs.hasSync(password, salt);
+    req.body.password = await bcryptjs.hashSync(password, salt);
 
+    console.log(req.body);
     userService.register(req.body, (error, result) => {
         if (error) {
             return next(error);
@@ -19,7 +20,7 @@ export function register(req, res, next) {
 
 };
 
-export function login(req, res, next) {
+function login(req, res, next) {
     const { username, password } = req.body;
 
     userService.login({ username, password }, (error, result) => {
@@ -33,6 +34,12 @@ export function login(req, res, next) {
     })
 }
 
-export function userProfile(req, res, next) {
+function userProfile(req, res, next) {
     return res.status(200).json({ message: "Authorized User!" })
+}
+
+module.exports = {
+    register,
+    login,
+    userProfile
 }
